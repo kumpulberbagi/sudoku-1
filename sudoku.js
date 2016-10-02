@@ -8,33 +8,45 @@ class Sudoku {
       this.cornerCol = -1
   }
 
-  solve() {
-    //cek baris
+  solveFinal(){
     for(var i = 0 ; i < this.tampungBoard.length; i++){
       for(var j = 0 ; j < this.tampungBoard.length; j++){
         if(this.tampungBoard[i][j] === '0'){
-          var temp = [];
-          for(var cek = 9 ; cek > 0 ; cek--){
-            cek = cek.toString();
-            if(this.checkNumRow(i, cek) == true){
-              //nanti cek dimasukin ke angka 0
-              //this.tampungBoard[i][j] = cek
-              // break;//biar ketika nemu ga cari lagi, break for cek kalau cek baris aja
-              //cek kolom
-              if(this.checkNumCol(j, cek) === true){
-                  //this.tampungBoard[i][j] = cek
-                  //temp.push(cek);
-                  //break;
-                  //cek 3x3
-                 if(this.checkNumSquare(i, j, cek) === true){
-                   this.tampungBoard[i][j] = cek
-                 }
-              }
-            }else{
-              //kalau false artinya ga dimasukin
-              //this.tampungBoard[i][j] = 'a'
-            }
-          }
+          console.log(i + " " + j)
+          // if(this.checkNumCol(j, numberCek) === false && this.checkNumSquare(0, j, numberCek) === false){
+          //   console.log(this.tampungBoard[0][j])
+          //   // break
+          // }
+        }
+      }
+    }
+    return this.tampungBoard
+  }
+
+  emptyArr(row, numberCek){
+    var emptyArr = []
+    for(var i = 0 ; i < this.tampungBoard.length; i++){
+      for(var j = 0 ; j < this.tampungBoard.length; j++){
+        if(this.tampungBoard[i][j] === '0'){
+          emptyArr.push([i,j])
+        }
+      }
+    }
+    return emptyArr
+  }
+
+  solve() {
+    var row, col
+    var temp = 0
+    for(var i = 0 ; i < this.emptyArr().length ; i++){
+      row = this.emptyArr()[i][0]
+      col = this.emptyArr()[i][1]
+      for(var cek = 9 ; cek > 0 ; cek--){
+        cek = cek.toString()
+        if(this.checkAll(row, col, cek) === true){
+          this.tampungBoard[row][col] = cek
+        }else{
+          // this.tampungBoard[row][col] = 'a'
         }
       }
     }
@@ -42,7 +54,17 @@ class Sudoku {
     return this.tampungBoard;
   }
 
-  substitue(cornerRow, cornerCol,cek)
+  checkAll(row, col, cek){
+    if(this.checkNumRow(row, cek) === true &&
+    this.checkNumCol(col, cek) === true &&
+    this.checkNumSquare(row, col, cek) === true){
+      return true
+    }else{
+      return false
+    }
+  }
+
+  substitue(cornerRow, cornerCol,cek)//untuk checkNumSquare(3x3)
   {
     var flag = 0;
     cek = cek.toString()
@@ -90,8 +112,6 @@ class Sudoku {
       }
     }
 }
-    //console.log("corner : " + cornerRow + " , " + cornerCol)
-
 
   checkNumCol(col, cek){
     var flag = 0;
@@ -174,4 +194,6 @@ console.log(game.board())
 console.log('\n');
 //console.log(game.board_random());
 console.log(game.solve());
+console.log('\n');
+// console.log(game.solveFinal());
 // console.log(game.checkNumSquare(7,6, 8));
