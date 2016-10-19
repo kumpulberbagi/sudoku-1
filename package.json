@@ -1,0 +1,23 @@
+{
+  "name": "sudoku-1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "sudoku.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blanford-fox-2016/sudoku-1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/blanford-fox-2016/sudoku-1/issues"
+  },
+  "homepage": "https://github.com/blanford-fox-2016/sudoku-1#readme",
+  "dependencies": {
+    "mathjs": "^3.5.3"
+  }
+}
